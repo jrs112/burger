@@ -1,33 +1,22 @@
-var connection = require("../config/connection.js");
+var connection = require('../config/connection.js');
+
+// Object Relational Mapper (ORM)
 
 var orm = {
-  select: function(whatToSelect, tableInput) {
-    var queryString = "SELECT ?? FROM ??";
-    connection.query(queryString, [whatToSelect, tableInput], function(err, result) {
-      if (err) {
-        throw err;
-      }
-      console.log(result);
-    });
-  },
-  selectWhere: function(tableInput, colToSearch, valOfCol) {
+  selectAll: function(tableInput, colToSearch, valOfCol, cb) {
     var queryString = "SELECT * FROM ?? WHERE ?? = ?";
-
-    console.log(queryString);
-
     connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
-      console.log(result);
+      cb(result);
     });
   },
-  leftJoin: function(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
-    var queryString = "SELECT ?? FROM ?? AS tOne";
-    queryString = queryString + " LEFT JOIN ?? AS tTwo";
-    queryString = queryString + " ON tOne.?? = tTwo.??";
-
-    console.log(queryString);
-
-    connection.query(queryString, [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol], function(err, result) {
-      console.log(result);
+   insertOne: function(tableInput, column, some_val, cb){
+    connection.query('INSERT INTO ' + tableInput + ' ( ' + column + ' ) ' + ' VALUES (?)', [some_val], function(err, result){
+      cb(result);
+    });
+  },
+  updateOne: function(tableInput, column, set_val, col_param, val_param, cb){
+    connection.query('UPDATE ' + tableInput + ' SET ' + column + ' = ? WHERE ' + col_param + ' = ?', [set_val, val_param], function(err, result){
+      cb(result);
     });
   }
 };
