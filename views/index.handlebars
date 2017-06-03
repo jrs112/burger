@@ -1,0 +1,41 @@
+<div>
+<img src="http://www.tastyburger.com/wp-content/themes/tastyBurger/images/home/img-large-burger.jpg" alt="" style="max-width: 500px">
+</div>
+<div class="col-md-4">
+  <form class="col-md-12" action="/burger/add" method="POST">
+    <div class="col-md-11">
+        <label for="burger">Order Your Burger!</label>
+        <input type="text" id="burger" name="user_burger">
+    </div>
+  </form>
+</div>
+
+<div class="col-md-4">
+
+  <div class="col-md-12 text-center">
+      {{#each burger}}
+        {{#unless this.devoured}}
+          <form class="col-md-12" action="/burger/update/{{this.id}}?_method=PUT" method="POST">
+          <div class="burger_name" id="burger1">{{this.burger_name}}
+          </div>
+          <button class="btn btn-warning btn-xs" type="submit"></button>
+          </form>
+        {{/unless}}
+      {{/each}}
+  </div>
+</div>
+
+<div class="col-md-4">
+
+  <div class="col-md-12 text-center">
+    {{#each burger}}
+      {{#if this.devoured}}
+          <form class="col-md-12" action="/burger/delete/{{this.id}}?_method=PUT" method="POST">
+          <div class="burger_name">{{this.burger_name}}
+          </div>
+            <button class="btn btn-warning btn-xs" type="submit"></button>
+          </form>
+      {{/if}}
+    {{/each}}
+  </div>
+</div>

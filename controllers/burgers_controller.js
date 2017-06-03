@@ -13,7 +13,7 @@ burger_router.get('/', function(req,res){
 });
 
 burger_router.get('/burger', function(req,res){
-  burger_call.read(function(data){
+  burger_call.selectAll(function(data){
     var hbs_object = {burger: data};
     res.render('index', hbs_object);
   });

@@ -7,7 +7,7 @@ var burger_call = {
     });
   },
   selectAll: function(cb){
-    orm.read('burgers', function(res){
+    orm.selectAll('burgers', function(res){
       cb(res);
     });
   },
